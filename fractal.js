@@ -9,6 +9,16 @@ function clear() {
 }
 
 // egy vonalat csinal
+function createRelativePath(x1,y1,x2,y2) {
+  var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.setAttribute("d", "M " + x1 + " " + y1 + " l " + x2 + " " + y2);
+  path.style.stroke="#F00";
+  path.style.strokeWidth="1px";
+
+  svg.appendChild(path);
+}
+
+// egy vonalat csinal
 function createPath(x1,y1,x2,y2) {
   var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
   path.setAttribute("d", "M " + x1 + " " + y1 + " L " + x2 + " " + y2);
@@ -40,9 +50,9 @@ function draw(d, x, y, l, r) {
   if (d === 0) {
     var x1 = x;
     var y1 = y;
-    var x2 = x + c*l;
-    var y2 = y + s*l;
-    createPath(x1,y1,x2,y2);
+    var x2 = c*l;
+    var y2 = s*l;
+    createRelativePath(x1,y1,x2,y2);
     return;
   }
   for (var i=0; i < spec.length; i++) {
