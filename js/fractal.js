@@ -1,5 +1,5 @@
 // megkeressuk az SVG DOM-unkat
-var svg = document.querySelector('#svg');
+var svg = document.querySelector('#main-draw-table');
 
 // kitorli az SVG vonalak
 function clear() {
