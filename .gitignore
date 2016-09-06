@@ -1,2 +1,7 @@
-# Ignore Jetbrain IDE files
+# Ignore JetBrains IDE files
 /.idea
+
+# Hidden files
+~*
+.*
+!.git*
