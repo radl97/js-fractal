@@ -27,6 +27,10 @@ function drawLine(drawTable, x1, y1, x2, y2) {
 
 /**
  * Koch-curve description
+ * 
+ * syntax: [x,y,l,r]
+ * Draw from (x,y) in r radian angle l lenght
+ * 
  * @type {*[]}
  */
 var koch_spec = [ // (0px,0px); 1px, 0 rad) -> ??
@@ -36,9 +40,6 @@ var koch_spec = [ // (0px,0px); 1px, 0 rad) -> ??
     [1 / 2, Math.sqrt(3) / 6, 1 / 3, -Math.PI / 3],
     [2 / 3, 0, 1 / 3, 0]
 ];
-
-// [x,y,l,r] elemeket tartalmaz
-// (x;y)-tol +x tengelytol -r radian szogben l hosszu vonal
 
 /**
  * Specify a fractal
