@@ -1,5 +1,6 @@
 # Ignore JetBrains IDE files
 /.idea
+*.iml
 
 # Hidden files
 ~*
