@@ -86,9 +86,9 @@ function draw(drawTable, d, x, y, l, r) {
 
 /**
  * Drow the fractal to the draw table
- * @param drawTable The draw table SVG DOM element
+ * @param selector The draw table SVG DOM element
  */
-function drawFractal(drawTable) {
+function drawFractal(selector) {
     drawTable = document.querySelector(selector);
 
     clearDrawTable(drawTable);
