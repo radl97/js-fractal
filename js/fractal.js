@@ -27,10 +27,10 @@ function drawLine(drawTable, x1, y1, x2, y2) {
 
 /**
  * Koch-curve description
- * 
+ *
  * syntax: [x,y,l,r]
  * Draw from (x,y) in r radian angle l lenght
- * 
+ *
  * @type {*[]}
  */
 var koch_spec = [ // (0px,0px); 1px, 0 rad) -> ??
