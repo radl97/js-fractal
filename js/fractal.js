@@ -94,7 +94,7 @@ function drawFractal(selector) {
     clearDrawTable(drawTable);
     // TODO connect this function with the GUI
     // 5 szintu gorbe (20;20) ponttol, 729 hosszu vonal helyett
-    draw(drawTable, 5, 20, 20, 729, 0);
+    draw(drawTable, 4, 20, 20, 800, 0);
 }
 
 

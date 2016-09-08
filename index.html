@@ -33,12 +33,106 @@
 </nav>
 
 <div class="container-fluid">
+    <div class="col-sm-3 row">
+
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="fractal-level" class="col-sm-2 control-label">Level</label>
+                <div class="col-sm-3">
+                    <input type="number" class="form-control" id="fractal-level" placeholder="Level" value="4">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <input type="number" class="form-control fractal-matrix-input" data-column="0" data-row="0"
+                           placeholder="X" value="0">
+                </div>
+                <div class="col-sm-3">
+                    <input type="number" class="form-control fractal-matrix-input" data-column="1" data-row="0"
+                           placeholder="Y" value="0">
+                </div>
+                <div class="col-sm-3">
+                    <input type="number" class="form-control fractal-matrix-input" data-column="2" data-row="0"
+                           placeholder="Length" value="0.3333333333333333">
+                </div>
+                <div class="col-sm-3">
+                    <input type="number" class="form-control fractal-matrix-input" data-column="3" data-row="0"
+                           placeholder="Angle" value="0">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <input type="number" class="form-control fractal-matrix-input" data-column="0" data-row="1"
+                           placeholder="X" value="0.3333333333333333">
+                </div>
+                <div class="col-sm-3">
+                    <input type="number" class="form-control fractal-matrix-input" data-column="1" data-row="1"
+                           placeholder="Y" value="0">
+                </div>
+                <div class="col-sm-3">
+                    <input type="number" class="form-control fractal-matrix-input" data-column="2" data-row="1"
+                           placeholder="Length" value="0.3333333333333333">
+                </div>
+                <div class="col-sm-3">
+                    <input type="number" class="form-control fractal-matrix-input" data-column="3" data-row="1"
+                           placeholder="Angle" value="1.0471975511965976">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <input type="number" class="form-control fractal-matrix-input" data-column="0" data-row="2"
+                           placeholder="X" value="0.5">
+                </div>
+                <div class="col-sm-3">
+                    <input type="number" class="form-control fractal-matrix-input" data-column="1" data-row="2"
+                           placeholder="Y" value="0.28867513459481287">
+                </div>
+                <div class="col-sm-3">
+                    <input type="number" class="form-control fractal-matrix-input" data-column="2" data-row="2"
+                           placeholder="Length" value="0.3333333333333333">
+                </div>
+                <div class="col-sm-3">
+                    <input type="number" class="form-control fractal-matrix-input" data-column="3" data-row="2"
+                           placeholder="Angle" value="-1.0471975511965976">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <input type="number" class="form-control fractal-matrix-input" data-column="0" data-row="3"
+                           placeholder="X" value="0.6666666666666666">
+                </div>
+                <div class="col-sm-3">
+                    <input type="number" class="form-control fractal-matrix-input" data-column="1" data-row="3"
+                           placeholder="Y" value="0">
+                </div>
+                <div class="col-sm-3">
+                    <input type="number" class="form-control fractal-matrix-input" data-column="2" data-row="3"
+                           placeholder="Length" value="0.3333333333333333">
+                </div>
+                <div class="col-sm-3">
+                    <input type="number" class="form-control fractal-matrix-input" data-column="3" data-row="3"
+                           placeholder="Angle" value="0">
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+<div class="container-fluid">
     <svg id="main-draw-table" class="draw-box"></svg>
 </div>
 
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/fractal.js"></script>
+<script src="js/fractal-gui.js"></script>
+
 <script>
     drawFractal("#main-draw-table");
 </script>
