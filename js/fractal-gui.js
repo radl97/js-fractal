@@ -1,3 +1,4 @@
+// TODO: rework the HTML and this specification, so only one must hold this value
 var spec = [
     [0, 0, 1 / 3, 0],
     [1 / 3, 0, 1 / 3, Math.PI / 3],
@@ -5,7 +6,7 @@ var spec = [
     [2 / 3, 0, 1 / 3, 0]
 ];
 
-var fractal_depth = 5;
+var fractal_depth = 5; // we need it as an integer!
 
 $(document).ready(function () {
     $("input.fractal-matrix-input").change(function () {
@@ -18,16 +19,40 @@ $(document).ready(function () {
     });
 
     $("input#fractal-level").change(function () {
-        fractal_depth = $(this).val();
+        fractal_depth = parseInt($(this).val());
         console.log("Fractal level changed: " + fractal_depth);
         redraw();
     });
 });
 
 function redraw() {
+    // in this version we scale the fractal to horizontally fit in the screen
+    // TODO resize the draw table vertically
+
+    // compute the lines
+    var specClone = spec.slice(); // we clone the fractal specification so it doesn't change while computing the fractal
+    console.log("Computing...");
+    var lines = computeFractal(specClone, fractal_depth);
+    console.log("Computed");
+
+    // get the boundaries
+    var boundaries = getBoundaries(lines);
+
+    // compute parameters from boundaries
+    // TODO: add margin to all sides (test if SVG creates anomalies when using padding or margin)
+    var drawTableSize = 800;
+    var x = boundaries.xMin;
+    var y = boundaries.yMin;
+    var width = Math.min(1, boundaries.xMax - boundaries.xMin);
+    var height = boundaries.yMax - boundaries.yMin;
+    var length = drawTableSize / width;
+    var angle = 0;
+    var minimumDrawTableHeight = height * length;
+
+    // TODO: use minimumDrawTableHeight to resize the draw table vertically, careful, it might be 0
+
     var drawTable = document.querySelector("#main-draw-table");
-    var specClone = spec.slice(); // we should clone spec so it doesn't change while computing the fractal
 
     clearDrawTable(drawTable);
-    draw(drawTable, specClone, fractal_depth, 20, 20, 729, 0);
+    drawLines(drawTable, lines, x, y, length, angle);
 }
