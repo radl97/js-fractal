@@ -5,6 +5,8 @@ var spec = [
     [2 / 3, 0, 1 / 3, 0]
 ];
 
+var fractal_depth = 5;
+
 $(document).ready(function () {
     $("input.fractal-matrix-input").change(function () {
         var col = $(this).data("column");
@@ -16,12 +18,16 @@ $(document).ready(function () {
     });
 
     $("input#fractal-level").change(function () {
-        var val = $(this).val();
-        console.log("Fractal level changed: " + val);
+        fractal_depth = $(this).val();
+        console.log("Fractal level changed: " + fractal_depth);
         redraw();
     });
 });
 
 function redraw() {
-    // TODO implement this
+    var drawTable = document.querySelector("#main-draw-table");
+    var specClone = spec.slice(); // we should clone spec so it doesn't change while computing the fractal
+
+    clearDrawTable(drawTable);
+    draw(drawTable, specClone, fractal_depth, 20, 20, 729, 0);
 }
