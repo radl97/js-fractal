@@ -12,7 +12,7 @@ $(document).ready(function () {
     $("input.fractal-matrix-input").change(function () {
         var col = $(this).data("column");
         var row = $(this).data("row");
-        var val = $(this).val();
+        var val = parseInt($(this).val());
         spec[row][col] = val;
         console.log("Input changed: col: " + col + ", row: " + row + ", value: " + val + "");
         redraw();
@@ -31,9 +31,7 @@ function redraw() {
 
     // compute the lines
     var specClone = spec.slice(); // we clone the fractal specification so it doesn't change while computing the fractal
-    console.log("Computing...");
     var lines = computeFractal(specClone, fractal_depth);
-    console.log("Computed");
 
     // get the boundaries
     var boundaries = getBoundaries(lines);
@@ -41,13 +39,12 @@ function redraw() {
     // compute parameters from boundaries
     // TODO: add margin to all sides (test if SVG creates anomalies when using padding or margin)
     var drawTableSize = 800;
-    var x = boundaries.xMin;
-    var y = boundaries.yMin;
-    var width = Math.min(1, boundaries.xMax - boundaries.xMin);
-    var height = boundaries.yMax - boundaries.yMin;
+    var width = Math.max(1, boundaries.xMax - boundaries.xMin);
     var length = drawTableSize / width;
+
+    var x = -boundaries.xMin * length;
+    var y = -boundaries.yMin * length;
     var angle = 0;
-    var minimumDrawTableHeight = height * length;
 
     // TODO: use minimumDrawTableHeight to resize the draw table vertically, careful, it might be 0
 

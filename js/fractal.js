@@ -92,11 +92,11 @@ function drawLines(drawTable, lines, x, y, length, angle) {
 
     for (var i = 0; i < lines.length; i++) {
         var lineSpec = lines[i];
-        var fractalX = lineSpec[0], fractalY = lineSpec[1], fractalLength = lineSpec[2], fractalAngle = lineSpec[3];
-        var transformedX = length * (fractalX * cos - fractalY * sin) + x;
-        var transformedY = length * (fractalY * cos + fractalX * sin) + y;
-        var transformedLength = fractalLength * length;
-        var transformedAngle = fractalAngle + angle;
+        var lineX = lineSpec[0], lineY = lineSpec[1], lineLength = lineSpec[2], lineAngle = lineSpec[3];
+        var transformedX = length * (lineX * cos - lineY * sin) + x;
+        var transformedY = length * (lineY * cos + lineX * sin) + y;
+        var transformedLength = lineLength * length;
+        var transformedAngle = lineAngle + angle;
         var transformedDX = Math.cos(transformedAngle) * transformedLength;
         var transformedDY = Math.sin(transformedAngle) * transformedLength;
         drawLine(drawTable, transformedX, transformedY, transformedDX, transformedDY);
