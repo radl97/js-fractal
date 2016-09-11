@@ -18,9 +18,8 @@ function clearDrawTable(drawTable) {
  */
 function drawLine(drawTable, x, y, dx, dy) {
     var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path.setAttribute("d", "M " + x + " " + y + " l " + dx + " " + dy);
-    path.style.stroke = "#F00";
-    path.style.strokeWidth = "1px";
+    path.setAttribute("d", "M" + x + " " + y + " l" + dx + " " + dy);
+    path.classList.add("draw-line");
 
     drawTable.appendChild(path);
 }
