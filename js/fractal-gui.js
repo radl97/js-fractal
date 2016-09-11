@@ -36,19 +36,23 @@ function redraw() {
     // get the boundaries
     var boundaries = getBoundaries(lines);
 
+    var drawTable = document.querySelector("#main-draw-table");
+    var drawTableJQ = $("#main-draw-table");
+
     // compute parameters from boundaries
     // TODO: add margin to all sides (test if SVG creates anomalies when using padding or margin)
-    var drawTableSize = 800;
-    var width = Math.max(1, boundaries.xMax - boundaries.xMin);
-    var length = drawTableSize / width;
+    var drawTableWidth = drawTableJQ.width() - 100;
+    var width = Math.max(0.01, boundaries.xMax - boundaries.xMin);
+    var length = drawTableWidth / width;
+    var drawTableHeight = length * (boundaries.yMax - boundaries.yMin) + 100;
 
-    var x = -boundaries.xMin * length;
-    var y = -boundaries.yMin * length;
+    var x = -boundaries.xMin * length + 50;
+    var y = -boundaries.yMin * length + 50;
     var angle = 0;
 
     // TODO: use minimumDrawTableHeight to resize the draw table vertically, careful, it might be 0
 
-    var drawTable = document.querySelector("#main-draw-table");
+    drawTableJQ.height(drawTableHeight);
 
     clearDrawTable(drawTable);
     drawLines(drawTable, lines, x, y, length, angle);
