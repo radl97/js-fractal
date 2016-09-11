@@ -12,7 +12,7 @@ $(document).ready(function () {
     $("input.fractal-matrix-input").change(function () {
         var col = $(this).data("column");
         var row = $(this).data("row");
-        var val = parseInt($(this).val());
+        var val = parseFloat($(this).val());
         spec[row][col] = val;
         console.log("Input changed: col: " + col + ", row: " + row + ", value: " + val + "");
         redraw();
