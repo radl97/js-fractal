@@ -55,7 +55,7 @@ function redraw() {
     // TODO: use minimumDrawTableHeight to resize the draw table vertically, careful, it might be 0
 
     // Set height
-    drawTable.css("width", drawTableHeight);
+    drawTable.css("height", drawTableHeight);
 
     clearDrawTable(drawTable);
 
