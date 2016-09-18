@@ -10,9 +10,20 @@ html, body, svg {
     margin-top: 40px;
 }
 
+.draw-line-dashed {
+    stroke: #700;
+    stroke-width: 1px;
+    stroke-dasharray: 11;
+}
+
 .draw-line {
     stroke: #F00;
     stroke-width: 1px;
+}
+
+#gui-input-draw-table {
+    width: 900px;
+    height: 400px;
 }
 
 #main-draw-table {
