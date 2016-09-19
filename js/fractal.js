@@ -64,6 +64,8 @@ function drawLines(drawTable, lines, x, y, length, angle) {
     var cos = Math.cos(angle);
     var sin = Math.sin(angle);
 
+    var str = "";
+
     for (var i = 0; i < lines.length; i++) {
         var lineSpec = lines[i];
         var lineX = lineSpec[0], lineY = lineSpec[1], lineLength = lineSpec[2], lineAngle = lineSpec[3];
@@ -73,8 +75,16 @@ function drawLines(drawTable, lines, x, y, length, angle) {
         var transformedAngle = lineAngle + angle;
         var transformedDX = Math.cos(transformedAngle) * transformedLength;
         var transformedDY = Math.sin(transformedAngle) * transformedLength;
-        drawLine(drawTable, transformedX, transformedY, transformedDX, transformedDY);
+        str += "M" + transformedX + " " + transformedY +
+               " l" + transformedDX + " " + transformedDY + " ";
+//        drawLine(drawTable, transformedX, transformedY, transformedDX, transformedDY);
     }
+    var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute("d", str);
+    path.classList.add("draw-line");
+
+    drawTable.append(path);
+
 }
 
 /**
