@@ -36,10 +36,9 @@
     <div class="col-sm-3 row">
         <form class="form-horizontal">
             <div class="form-group">
-                <label for="fractal-line-num" class="col-sm-4 control-label">Number of lines: </label>
+                <label for="fractal-line-num" class="col-sm-4 control-label"> Fractal level: </label>
                 <div class="col-sm-3">
-                    <input type="number" class="form-control" id="fractal-line-num" placeholder="Number of lines"
-                           value="4">
+                    <input type="number" class="form-control" id="fractal-level" placeholder="Level" value="4">
                 </div>
             </div>
         </form>
@@ -48,14 +47,7 @@
 </div>
 
 <div class="container-fluid">
-    <svg id="gui-input-draw-table" class="draw-box">
-        <path d="M50 50 l800 0" class="draw-line-dashed"></path>
-        <path d="M50 50 l266.0605856549479 0" class="draw-line"></path>
-        <path d="M316.0605856549479 50 l133.03029282747397 230.41522612295046" class="draw-line"></path>
-        <path d="M449.0908784824219 280.41522612295046 l133.03029282747397 -230.41522612295046"
-              class="draw-line"></path>
-        <path d="M582.1211713098958 50 l266.0605856549479 0" class="draw-line"></path>
-    </svg>
+    <svg id="main-draw-table" class="draw-box"></svg>
 </div>
 
 <script src="js/jquery.min.js"></script>

@@ -10,6 +10,12 @@ html, body, svg {
     margin-top: 40px;
 }
 
+.line-interactive {
+    stroke: #000;
+    stroke-width: 10px;
+    opacity: 0.5;
+}
+
 .draw-line-dashed {
     stroke: #700;
     stroke-width: 1px;

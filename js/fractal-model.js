@@ -73,32 +73,6 @@ function transformLine(lineSpec, x, y, length, angle) {
 }
 
 /**
- * Draws the lines to the draw table
- * @param drawTable The draw table
- * @param lines The set of lines
- * @param x The X coordinate of the first endpoint of the base line
- * @param y The Y coordinate of the first endpoint of the base line
- * @param length The length of the base line
- * @param angle The angle between the base line and the +X axis
- */
-function drawLines(drawTable, lines, x, y, length, angle) {
-    var str = "";
-
-    for (var i = 0; i < lines.length; i++) {
-        var lineSpec = lines[i];
-        transformedLine = transformLine(lineSpec, x, y, length, angle);
-        str += "M" + transformedLine[0] + " " + transformedLine[1] +
-               " l" + transformedLine[2] + " " + transformedLine[3] + " ";
-    }
-    var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path.setAttribute("d", str);
-    path.classList.add("draw-line");
-
-    drawTable.append(path);
-
-}
-
-/**
  * Gets the boundaries of the lines
  * @param lines The set of lines
  * @returns {{xMin: number, yMin: number, xMax: number, yMax: number}} Returns the boundaries of the fractal
