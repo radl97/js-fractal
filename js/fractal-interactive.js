@@ -1,3 +1,7 @@
+/**
+ * This file is responsible for the interactive fractal input
+ */
+
 $(document).ready(function () {
   var mouse_moved = 0;
   var parent = document.getElementById('gui-input-draw-table');
@@ -20,7 +24,7 @@ function addInteractiveLine(parent, x, y, dx, dy) {
         mouse_moved = 1;
     }, false);
 
-    function upEvent(this) { return function(event) {
+    function upEvent(line) { return function(event) {
         console.log(event);
         if (mouse_moved === 0) {
           console.log("Click");

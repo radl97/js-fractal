@@ -1,28 +1,6 @@
 /**
- * Clears the draw table
- * @param drawTable The draw table SVG DOM element
+ * This file is responsible for calculating the fractal
  */
-function clearDrawTable(drawTable) {
-    while (drawTable.firstChild) {
-        drawTable.removeChild(drawTable.firstChild);
-    }
-}
-
-/**
- * Draw a line to the draw table
- * @param drawTable The draw table SVG DOM element
- * @param x X coordinate of the start point
- * @param y Y coordinate of the start point
- * @param dx X coordinate of the end point relative to the start point (real coordinate is x+dx)
- * @param dy Y coordinate of the end point relative to the start point (real coordinate is y+dy)
- */
-function drawLine(drawTable, x, y, dx, dy) {
-    var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path.setAttribute("d", "M" + x + " " + y + " l" + dx + " " + dy);
-    path.classList.add("draw-line");
-
-    drawTable.appendChild(path);
-}
 
 /**
  * Compute and return all the lines of the fractal recursively
@@ -77,6 +55,24 @@ function computeFractal(spec, depth) {
 }
 
 /**
+ * Transforms a lineSpec with x, y, length, angle (see above)
+ * @return [x, y, dx, dy] meaning that the line goes from (x,y) to (x+dx, y+dy)
+ * Used by drawLine to scale the line to the picture
+ */
+function transformLine(lineSpec, x, y, length, angle) {
+    var cos = Math.cos(angle);
+    var sin = Math.sin(angle);
+    var lineX = lineSpec[0], lineY = lineSpec[1], lineLength = lineSpec[2], lineAngle = lineSpec[3];
+    var transformedX = length * (lineX * cos - lineY * sin) + x;
+    var transformedY = length * (lineY * cos + lineX * sin) + y;
+    var transformedLength = lineLength * length;
+    var transformedAngle = lineAngle + angle;
+    var transformedDX = Math.cos(transformedAngle) * transformedLength;
+    var transformedDY = Math.sin(transformedAngle) * transformedLength;
+    return [transformedX, transformedY, transformedDX, transformedDY];
+}
+
+/**
  * Draws the lines to the draw table
  * @param drawTable The draw table
  * @param lines The set of lines
@@ -86,20 +82,20 @@ function computeFractal(spec, depth) {
  * @param angle The angle between the base line and the +X axis
  */
 function drawLines(drawTable, lines, x, y, length, angle) {
-    var cos = Math.cos(angle);
-    var sin = Math.sin(angle);
+    var str = "";
 
     for (var i = 0; i < lines.length; i++) {
         var lineSpec = lines[i];
-        var lineX = lineSpec[0], lineY = lineSpec[1], lineLength = lineSpec[2], lineAngle = lineSpec[3];
-        var transformedX = length * (lineX * cos - lineY * sin) + x;
-        var transformedY = length * (lineY * cos + lineX * sin) + y;
-        var transformedLength = lineLength * length;
-        var transformedAngle = lineAngle + angle;
-        var transformedDX = Math.cos(transformedAngle) * transformedLength;
-        var transformedDY = Math.sin(transformedAngle) * transformedLength;
-        drawLine(drawTable, transformedX, transformedY, transformedDX, transformedDY);
+        transformedLine = transformLine(lineSpec, x, y, length, angle);
+        str += "M" + transformedLine[0] + " " + transformedLine[1] +
+               " l" + transformedLine[2] + " " + transformedLine[3] + " ";
     }
+    var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute("d", str);
+    path.classList.add("draw-line");
+
+    drawTable.append(path);
+
 }
 
 /**
