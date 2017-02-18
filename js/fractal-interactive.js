@@ -15,13 +15,18 @@ $(document).ready(function () {
     addInteractiveLine(parent, 50, 50, 300, 100, "interactive-line-02");
     addInteractiveLine(parent, 50, 50, 500, 100, "interactive-line-03");
     addInteractiveLine(parent, 50, 50, 300, 300, "interactive-line-04");
+    addInteractiveLine(parent, 50, 50, 300, 300, "interactive-line-05");
+    addInteractiveLine(parent, 50, 50, 300, 300, "interactive-line-06");
+    addInteractiveLine(parent, 50, 50, 300, 300, "interactive-line-07");
+    addInteractiveLine(parent, 50, 50, 300, 300, "interactive-line-08");
+    addInteractiveLine(parent, 50, 50, 300, 300, "interactive-line-09");
 
-    parent.addEventListener("mousedown", function(event) {
+    parent.addEventListener("mouseup", function(event) {
+        activeLine.style.stroke = '#000';
         activeLine = undefined;
     }, true);
-    parent.addEventListener("mouseup", function(event) {
+    parent.addEventListener("mousemove", function(event) {
         if (!activeLine) return;
-        activeLine.style.stroke = '#000';
         var x0 = event.offsetX;
         var y0 = event.offsetY;
         var line = lines[activeLine.id];
