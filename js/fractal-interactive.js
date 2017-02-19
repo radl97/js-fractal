@@ -50,7 +50,6 @@ function addLine() {
 function removeLine() {
     if (lastLineId == 0) return;
     var id = 'interactive-line-' + lastLineId;
-    console.log(lines[id]);
     delete lines[id];
     var toRemove = document.getElementById(id);
     toRemove.parentNode.removeChild(toRemove);
@@ -64,7 +63,9 @@ $(document).ready(function () {
     addInteractiveLine(parent, 50, 50, 800, 50, "base-line");
 
     parent.addEventListener("mouseup", function(event) {
-        activeLine.style.stroke = '#000';
+        if (activeLine) {
+            activeLine.style.stroke = '#000';
+        }
         activeLine = undefined;
     }, true);
     parent.addEventListener("mousemove", function(event) {
@@ -83,8 +84,6 @@ $(document).ready(function () {
           line[1] = line[3] = y0;
         }
         activeLine.setAttribute("d", "M" + line[0] + " " + line[1] + " L" + line[2] + " " + line[3]);
-        console.log(event);
-        console.log(activeLine);
 
         guiRedraw();
     }, false);
@@ -113,7 +112,6 @@ function addInteractiveLine(parent, x, y, x2, y2, id) {
             var l1 = dx1*dx1 + dy1*dy1;
             var l2 = dx2*dx2 + dy2*dy2;
             side = +(l1 < l2);
-            console.log(side);
         }
     }
     interactiveLine.addEventListener("mousedown",

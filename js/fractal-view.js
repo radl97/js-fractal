@@ -28,8 +28,6 @@ function redrawWithBaseLine(baseLineSpec) {
 
     var drawTable = document.getElementById("main-draw-table");
     var drawTableJQ = $("#main-draw-table");
-    console.log(drawTable);
-    console.log(drawTable.empty);
 
     // compute parameters from boundaries
     // TODO: add margin to all sides (test if SVG creates anomalies when using padding or margin)
@@ -62,8 +60,6 @@ function redraw() {
 
     var drawTable = document.getElementById("main-draw-table");
     var drawTableJQ = $("#main-draw-table");
-    console.log(drawTable);
-    console.log(drawTable.empty);
 
     // compute parameters from boundaries
     // TODO: add margin to all sides (test if SVG creates anomalies when using padding or margin)
