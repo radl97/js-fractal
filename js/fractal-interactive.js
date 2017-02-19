@@ -6,20 +6,62 @@ var activeLine = undefined;
 var side = 0;
 
 var lines = {};
+var lastLineId = 0;
+
+function guiRedraw() {
+    spec = [];
+    var baseLine = lines["base-line"];
+    var baseX1 = baseLine[0];
+    var baseY1 = baseLine[1];
+    var baseX2 = baseLine[2];
+    var baseY2 = baseLine[3];
+    var baseDX = baseX2 - baseX1;
+    var baseDY = baseY2 - baseY1;
+    var baseLength = Math.sqrt(baseDX*baseDX + baseDY*baseDY);
+    for (var visualLine in lines) {
+        if (visualLine == "base-line") continue;
+        var line = lines[visualLine];
+        var x1 = line[0] - baseX1;
+        var y1 = line[1] - baseY1;
+        var x2 = line[2] - baseX1;
+        var y2 = line[3] - baseY1;
+        var dx = x2 - x1;
+        var dy = y2 - y1;
+        var angle = Math.atan2(dy, dx);
+        var length = Math.sqrt(dx*dx + dy*dy);
+        spec.push([x1 / baseLength, y1 / baseLength, length / baseLength, angle]);
+    }
+    redrawWithBaseLine([baseX1, baseY1, baseX2, baseY2]);
+}
+
+function addLine() {
+    lastLineId++;
+    var lineSpec = lines["base-line"];
+    var parent = document.getElementById('main-draw-table');
+    addInteractiveLine(parent,
+        lineSpec[0],
+        lineSpec[1],
+        lineSpec[2],
+        lineSpec[3],
+        "interactive-line-" + lastLineId);
+    guiRedraw();
+}
+
+function removeLine() {
+    if (lastLineId == 0) return;
+    var id = 'interactive-line-' + lastLineId;
+    console.log(lines[id]);
+    delete lines[id];
+    var toRemove = document.getElementById(id);
+    toRemove.parentNode.removeChild(toRemove);
+    lastLineId--;
+    guiRedraw();
+}
 
 $(document).ready(function () {
     var parent = document.getElementById('main-draw-table');
 
     addInteractiveLine(parent, 50, 50, 800, 50, "base-line");
-    addInteractiveLine(parent, 50, 50, 500, 300, "interactive-line-01");
-    addInteractiveLine(parent, 50, 50, 300, 100, "interactive-line-02");
-    addInteractiveLine(parent, 50, 50, 500, 100, "interactive-line-03");
-    addInteractiveLine(parent, 50, 50, 300, 300, "interactive-line-04");
-    addInteractiveLine(parent, 50, 50, 300, 300, "interactive-line-05");
-    addInteractiveLine(parent, 50, 50, 300, 300, "interactive-line-06");
-    addInteractiveLine(parent, 50, 50, 300, 300, "interactive-line-07");
-    addInteractiveLine(parent, 50, 50, 300, 300, "interactive-line-08");
-    addInteractiveLine(parent, 50, 50, 300, 300, "interactive-line-09");
 
     parent.addEventListener("mouseup", function(event) {
         activeLine.style.stroke = '#000';
@@ -44,46 +86,12 @@ $(document).ready(function () {
         console.log(event);
         console.log(activeLine);
 
-        var line = undefined;
-        console.log(spec);
-        spec = [];
-        var baseLine = lines["base-line"];
-        var baseX1 = baseLine[0];
-        var baseY1 = baseLine[1];
-        var baseX2 = baseLine[2];
-        var baseY2 = baseLine[3];
-        var baseDX = baseX2 - baseX1;
-        var baseDY = baseY2 - baseY1;
-        var baseLength = Math.sqrt(baseDX*baseDX + baseDY*baseDY);
-        for (var visualLine in lines) {
-            if (visualLine == "base-line") continue;
-            var line = lines[visualLine];
-            var x1 = line[0] - baseX1;
-            var y1 = line[1] - baseY1;
-            var x2 = line[2] - baseX1;
-            var y2 = line[3] - baseY1;
-            var dx = x2 - x1;
-            var dy = y2 - y1;
-            console.log(x1);
-            console.log(x2);
-            console.log(dx);
-            var angle = Math.atan2(dy, dx);
-            var length = Math.sqrt(dx*dx + dy*dy);
-            console.log(length);
-            console.log(baseLength);
-            spec.push([x1 / baseLength, y1 / baseLength, length / baseLength, angle]);
-        }
-        console.log(spec);
-        redrawWithBaseLine([baseX1, baseY1, baseX2, baseY2]);
+        guiRedraw();
     }, false);
 
 });
 
 function addInteractiveLine(parent, x, y, x2, y2, id) {
-//    var visualLine = document.createElementNS('http://www.w3.org/2000/svg', 'visualLine');
-//    visualLine.setAttribute("d", "M" + x + " " + y + " L" + (x+x2) + " " + (y+y2));
-//    visualLine.classList.add("draw-line");
-
     var interactiveLine = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     interactiveLine.setAttribute("d", "M" + x + " " + y + " L" + x2 + " " + y2);
     interactiveLine.classList.add("line-interactive");

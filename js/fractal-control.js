@@ -18,11 +18,21 @@ $(document).ready(function () {
         redraw();
     });
 
-    $("input#fractal-level").change(function () {
-        fractalDepth = parseInt($(this).val());
-        console.log("Fractal level changed: " + fractalDepth);
-        redraw();
-    });
+    try {
+        $("input#fractal-level").change(function () {
+            fractalDepth = parseInt($(this).val());
+            console.log("Fractal level changed: " + fractalDepth);
+            redraw();
+        });
+    } catch (e) {}
+
+    try {
+        $("input#fractal-level-gui").change(function () {
+            fractalDepth = parseInt($(this).val());
+            console.log("Fractal level changed: " + fractalDepth);
+            guiRedraw();
+        });
+    } catch (e) {}
 
     redraw();
 });
