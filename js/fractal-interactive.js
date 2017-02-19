@@ -8,32 +8,26 @@ var side = 0;
 var lines = {};
 var lastLineId = 0;
 
+/**
+ * Recalculates the line specifications and calls redraw
+ * Fixes fractal's baseline to the interactive baseline
+ */
 function guiRedraw() {
-    spec = [];
     var baseLine = lines["base-line"];
-    var baseX1 = baseLine[0];
-    var baseY1 = baseLine[1];
-    var baseX2 = baseLine[2];
-    var baseY2 = baseLine[3];
-    var baseDX = baseX2 - baseX1;
-    var baseDY = baseY2 - baseY1;
-    var baseLength = Math.sqrt(baseDX*baseDX + baseDY*baseDY);
+    spec = [];
     for (var visualLine in lines) {
         if (visualLine == "base-line") continue;
-        var line = lines[visualLine];
-        var x1 = line[0] - baseX1;
-        var y1 = line[1] - baseY1;
-        var x2 = line[2] - baseX1;
-        var y2 = line[3] - baseY1;
-        var dx = x2 - x1;
-        var dy = y2 - y1;
-        var angle = Math.atan2(dy, dx);
-        var length = Math.sqrt(dx*dx + dy*dy);
-        spec.push([x1 / baseLength, y1 / baseLength, length / baseLength, angle]);
+        lineSpec = getLineSpecRelativeToBaseLine(visualLine, baseLine);
+        spec.push(lineSpec);
     }
-    redrawWithBaseLine([baseX1, baseY1, baseX2, baseY2]);
+    $('textarea#textarea-share').val(JSON.stringify(spec));
+    redrawWithBaseLine(baseLine);
 }
 
+/**
+ * Called directly from Add Line button
+ * Adds a line
+ */
 function addLine() {
     lastLineId++;
     var lineSpec = lines["base-line"];
@@ -47,6 +41,10 @@ function addLine() {
     guiRedraw();
 }
 
+/**
+ * Called directly from Remove Line button
+ * Removes the line that was added last
+ */
 function removeLine() {
     if (lastLineId == 0) return;
     var id = 'interactive-line-' + lastLineId;
@@ -99,7 +97,6 @@ function addInteractiveLine(parent, x, y, x2, y2, id) {
 
     function generateMouseDownHandler(line) {
         return function(event) {
-            mouse_moved = 0;
             activeLine = line;
             activeLine.style.stroke = '#0F0';
             var x0 = event.offsetX;
@@ -116,10 +113,6 @@ function addInteractiveLine(parent, x, y, x2, y2, id) {
     }
     interactiveLine.addEventListener("mousedown",
         generateMouseDownHandler(interactiveLine), true);
-
-    interactiveLine.addEventListener("mousemove", function(){
-        mouse_moved = 1;
-    }, false);
 
 //    parent.appendChild(visualLine);
     parent.appendChild(interactiveLine);
