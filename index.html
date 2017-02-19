@@ -33,27 +33,16 @@
 </nav>
 
 <div class="container-fluid">
-    <textarea id="textarea-share" readonly>
-    </textarea>
-</div>
-
-<div class="container-fluid">
-    <div class="col-sm-3 row">
-        <form class="form-horizontal">
+    <textarea id="textarea-share" class="form-control" style="margin-bottom: 20px" readonly></textarea>
+    <div class="col-sm-12">
+        <form class="form-horizontal form-inline">
             <div class="form-group">
-                <button type="button" class="btn btn-default"
-                    onclick="addLine()">Add Line</button>
-                <button type="button" class="btn btn-default"
-                    onclick="removeLine()">Remove Line</button>
-            </div>
-            <div class="form-group">
-                <label for="fractal-line-num" class="col-sm-4 control-label"> Fractal level: </label>
-                <div class="col-sm-3">
-                    <input type="number" class="form-control" id="fractal-level-gui" placeholder="Level" value="4">
-                </div>
+                <button type="button" class="btn btn-default" onclick="addLine()">Add Line</button>
+                <button type="button" class="btn btn-default" onclick="removeLine()">Remove Line</button>
+                <label for="fractal-level-gui" class="control-label">Fractal level: </label>
+                <input type="number" class="form-control" id="fractal-level-gui" placeholder="Level" value="4">
             </div>
         </form>
-
     </div>
 </div>
 
