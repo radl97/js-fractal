@@ -1,6 +1,40 @@
 /**
- * This file is responsible for calculating the fractal
+ * This file is responsible for calculating the fractal or things
+ * associated with it
  */
+
+/**
+ * Calculates the specification of an interactive line relative to the baseline
+ * @param visualLine [x1,y1,x2,y2] start- and endpositions on the canvas
+ * @param baseLine [x1,y1,x2,y2] start- and endpositions on the canvas
+ * @return Returns specification [x,y, length, angle] of the line
+ */
+function getLineSpecRelativeToBaseLine(visualLine, baseLine) {
+    var baseX1 = baseLine[0];
+    var baseY1 = baseLine[1];
+    var baseX2 = baseLine[2];
+    var baseY2 = baseLine[3];
+    var baseDX = baseX2 - baseX1;
+    var baseDY = baseY2 - baseY1;
+    var baseLength = Math.sqrt(baseDX*baseDX + baseDY*baseDY);
+    
+    var line = lines[visualLine];
+    var x1 = line[0] - baseX1;
+    var y1 = line[1] - baseY1;
+
+    var x2 = line[2] - baseX1;
+    var y2 = line[3] - baseY1;
+    var dx = x2 - x1;
+    var dy = y2 - y1;
+
+    var angle = Math.atan2(dy, dx);
+    var length = Math.sqrt(dx*dx + dy*dy);
+
+    x1 /= baseLength;
+    y1 /= baseLength;
+    length /= baseLength;
+    return [x1, y1, length, angle];
+}
 
 /**
  * Compute and return all the lines of the fractal recursively
