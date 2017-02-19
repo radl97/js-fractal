@@ -14,7 +14,8 @@ $(document).ready(function () {
         var row = $(this).data("row");
         var val = parseFloat($(this).val());
         spec[row][col] = val;
-        console.log("Input changed: col: " + col + ", row: " + row + ", value: " + val + "");
+        console.log("Input changed: col: " + col + ", row: " + row +
+            ", value: " + val);
         redraw();
     });
 
