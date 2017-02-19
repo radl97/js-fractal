@@ -20,6 +20,7 @@ function guiRedraw() {
         lineSpec = getLineSpecRelativeToBaseLine(visualLine, baseLine);
         spec.push(lineSpec);
     }
+    $('textarea#textarea-share').val(JSON.stringify(spec));
     redrawWithBaseLine(baseLine);
 }
 
