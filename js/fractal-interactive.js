@@ -97,7 +97,6 @@ function addInteractiveLine(parent, x, y, x2, y2, id) {
 
     function generateMouseDownHandler(line) {
         return function(event) {
-            mouse_moved = 0;
             activeLine = line;
             activeLine.style.stroke = '#0F0';
             var x0 = event.offsetX;
@@ -114,10 +113,6 @@ function addInteractiveLine(parent, x, y, x2, y2, id) {
     }
     interactiveLine.addEventListener("mousedown",
         generateMouseDownHandler(interactiveLine), true);
-
-    interactiveLine.addEventListener("mousemove", function(){
-        mouse_moved = 1;
-    }, false);
 
 //    parent.appendChild(visualLine);
     parent.appendChild(interactiveLine);
