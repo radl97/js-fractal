@@ -68,8 +68,9 @@ $(document).ready(function () {
     }, true);
     parent.addEventListener("mousemove", function(event) {
         if (!activeLine) return;
-        var x0 = event.offsetX;
-        var y0 = event.offsetY;
+        const rect = parent.getBoundingClientRect();
+        var x0 = event.clientX - rect.left;
+        var y0 = event.clientY - rect.top;
         var line = lines[activeLine.id];
         if (side) {
           line[0] = x0;
@@ -99,8 +100,9 @@ function addInteractiveLine(parent, x, y, x2, y2, id) {
         return function(event) {
             activeLine = line;
             activeLine.style.stroke = '#0F0';
-            var x0 = event.offsetX;
-            var y0 = event.offsetY;
+            const rect = parent.getBoundingClientRect();
+            var x0 = event.clientX - rect.left;
+            var y0 = event.clientY - rect.top;
             var lineSpec = lines[activeLine.id];
             var dx1 = lineSpec[0] - x0;
             var dy1 = lineSpec[1] - y0;
